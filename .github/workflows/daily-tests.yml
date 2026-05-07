@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4.0.0
+        uses: actions/checkout@v4
 
       - name: Set up Python 3.12
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
@@ -24,15 +24,15 @@ jobs:
           pip install -r requirements.txt
 
       - name: Install Playwright Browsers
-        run: playwright install
+        run: playwright install --with-deps chromium
 
       - name: Run Pytest + Playwright Tests
         run: |
-          pytest --tb=short --junitxml=results.xml
+          pytest --tb=short --junitxml=results.xml --my_browser chrome
 
       - name: Upload Test Results
-        if: always()   # Upload even if tests fail
-        uses: actions/upload-artifact@v3
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: test-results
           path: results.xml

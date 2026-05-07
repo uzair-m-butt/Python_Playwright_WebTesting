@@ -18,9 +18,9 @@ def browser_instance(playwright: Playwright, request):
     if isinstance(browser_name, list):
         browser_name = browser_name[0] if browser_name else 'chrome'
     if browser_name == 'chrome':
-        browser_context = playwright.chromium.launch(headless=False)
+        browser_context = playwright.chromium.launch()
     elif browser_name == 'firefox':
-        browser_context = playwright.firefox.launch(headless=False)
+        browser_context = playwright.firefox.launch()
     else:
         raise ValueError(f"Unsupported browser: '{browser_name}'. Choose from: chrome, firefox")
 
